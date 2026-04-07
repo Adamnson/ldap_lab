@@ -1,0 +1,5 @@
+
+dn: cn=Temp User,ou=employees,dc=neptune-software,dc=com
+changetype: modify
+add: manager
+manager: cn=Alice Johnson,ou=employees,dc=neptune-software,dc=com

@@ -1,0 +1,35 @@
+Starting tshark capture...
+Tshark started at 672532
+Running LDAP operations...
+dn:cn=admin,dc=neptune-software,dc=com
+# extended LDIF
+#
+# LDAPv3
+# base <dc=neptune-software,dc=com> with scope subtree
+# filter: (objectClass=inetOrgPerson)
+# requesting: ALL
+#
+
+# search result
+search: 2
+result: 32 No such object
+
+# numResponses: 1
+adding new entry "cn=Temp User,ou=employees,dc=neptune-software,dc=com"
+
+modifying entry "cn=Temp User,ou=employees,dc=neptune-software,dc=com"
+
+
+[+] Running: ldapwhoami -x -D 'cn=admin,dc=neptune-software,dc=com' -w password
+
+[+] Running: ldapsearch -x -b 'dc=neptune-software,dc=com' '(objectClass=inetOrgPerson)'
+
+[+] Running: ldapadd -x -D 'cn=admin,dc=neptune-software,dc=com' -w password -f temp_add.ldif
+
+[+] Running: ldapmodify -x -D 'cn=admin,dc=neptune-software,dc=com' -w password -f temp_modify.ldif
+
+[+] Running: ldapdelete -x -D 'cn=admin,dc=neptune-software,dc=com' -w password 'cn=Temp User,ou=employees,dc=neptune-software,dc=com'
+
+[+] LDAP operations complete
+Stopping capture...
+Capture saved to ldap_capture.pcap

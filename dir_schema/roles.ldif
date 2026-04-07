@@ -1,0 +1,19 @@
+dn: cn=CEO,ou=roles,dc=neptune-software,dc=com
+objectClass: organizationalRole
+cn: CEO
+roleOccupant: cn=Alice Johnson,ou=employees,dc=neptune-software,dc=com
+
+dn: cn=CTO,ou=roles,dc=neptune-software,dc=com
+objectClass: organizationalRole
+cn: CTO
+roleOccupant: cn=Brian Smith,ou=employees,dc=neptune-software,dc=com
+
+dn: cn=CFO,ou=roles,dc=neptune-software,dc=com
+objectClass: organizationalRole
+cn: CFO
+roleOccupant: cn=Carla Roy,ou=employees,dc=neptune-software,dc=com
+
+dn: cn=Head Sales,ou=roles,dc=neptune-software,dc=com
+objectClass: organizationalRole
+cn: Head Sales
+roleOccupant: cn=David Scott,ou=employees,dc=neptune-software,dc=com

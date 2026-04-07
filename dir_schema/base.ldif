@@ -1,0 +1,11 @@
+dn: ou=employees,dc=neptune-software,dc=com
+objectClass: organizationalUnit
+ou: employees
+
+dn: ou=roles,dc=neptune-software,dc=com
+objectClass: organizationalUnit
+ou: roles
+
+dn: ou=departments,dc=neptune-software,dc=com
+objectClass: organizationalUnit
+ou: departments

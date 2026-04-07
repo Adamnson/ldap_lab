@@ -1,0 +1,500 @@
+dn: cn=Jill Roy,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Jill Roy
+sn: Roy
+uid: jill.roy
+mail: jill.roy@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Bernadette Whittaker,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bernadette Whittaker
+sn: Whittaker
+uid: bernadette.whittaker
+mail: bernadette.whittaker@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Tara Whittaker,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Tara Whittaker
+sn: Whittaker
+uid: tara.whittaker
+mail: tara.whittaker@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Loyd Whittaker,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Loyd Whittaker
+sn: Whittaker
+uid: loyd.whittaker
+mail: loyd.whittaker@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Charlie Adams,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Charlie Adams
+sn: Adams
+uid: charlie.adams
+mail: charlie.adams@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Donna White,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Donna White
+sn: White
+uid: donna.white
+mail: donna.white@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Tara Marshal,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Tara Marshal
+sn: Marshal
+uid: tara.marshal
+mail: tara.marshal@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Harry Adams,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Harry Adams
+sn: Adams
+uid: harry.adams
+mail: harry.adams@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Bethany White,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bethany White
+sn: White
+uid: bethany.white
+mail: bethany.white@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Tara Osborne,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Tara Osborne
+sn: Osborne
+uid: tara.osborne
+mail: tara.osborne@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Albert Smith,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Albert Smith
+sn: Smith
+uid: albert.smith
+mail: albert.smith@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Mary Scott,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Mary Scott
+sn: Scott
+uid: mary.scott
+mail: mary.scott@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Charlie White,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Charlie White
+sn: White
+uid: charlie.white
+mail: charlie.white@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Samuel Johnson,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Samuel Johnson
+sn: Johnson
+uid: samuel.johnson
+mail: samuel.johnson@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Darren Johnson,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Darren Johnson
+sn: Johnson
+uid: darren.johnson
+mail: darren.johnson@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Donna Johnson,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Donna Johnson
+sn: Johnson
+uid: donna.johnson
+mail: donna.johnson@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=James Carrel,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: James Carrel
+sn: Carrel
+uid: james.carrel
+mail: james.carrel@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Fiona Roy,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Fiona Roy
+sn: Roy
+uid: fiona.roy
+mail: fiona.roy@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Derek Pitt,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Derek Pitt
+sn: Pitt
+uid: derek.pitt
+mail: derek.pitt@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Samuel Scott,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Samuel Scott
+sn: Scott
+uid: samuel.scott
+mail: samuel.scott@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Donna Pitt,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Donna Pitt
+sn: Pitt
+uid: donna.pitt
+mail: donna.pitt@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Mary Smith,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Mary Smith
+sn: Smith
+uid: mary.smith
+mail: mary.smith@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Samuel Goodall,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Samuel Goodall
+sn: Goodall
+uid: samuel.goodall
+mail: samuel.goodall@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Bert Carey,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bert Carey
+sn: Carey
+uid: bert.carey
+mail: bert.carey@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Samuel Roy,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Samuel Roy
+sn: Roy
+uid: samuel.roy
+mail: samuel.roy@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Michael Dunphy,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Michael Dunphy
+sn: Dunphy
+uid: michael.dunphy
+mail: michael.dunphy@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Bernadette Osborne,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bernadette Osborne
+sn: Osborne
+uid: bernadette.osborne
+mail: bernadette.osborne@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Samuel Carey,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Samuel Carey
+sn: Carey
+uid: samuel.carey
+mail: samuel.carey@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Loyd Smith,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Loyd Smith
+sn: Smith
+uid: loyd.smith
+mail: loyd.smith@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Michael Roy,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Michael Roy
+sn: Roy
+uid: michael.roy
+mail: michael.roy@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Bethany Adams,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bethany Adams
+sn: Adams
+uid: bethany.adams
+mail: bethany.adams@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Barry Osborne,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Barry Osborne
+sn: Osborne
+uid: barry.osborne
+mail: barry.osborne@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Bernadette White,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bernadette White
+sn: White
+uid: bernadette.white
+mail: bernadette.white@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Darren White,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Darren White
+sn: White
+uid: darren.white
+mail: darren.white@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Robert Hill,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Robert Hill
+sn: Hill
+uid: robert.hill
+mail: robert.hill@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Bert Scott,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bert Scott
+sn: Scott
+uid: bert.scott
+mail: bert.scott@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Bethany Johnson,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bethany Johnson
+sn: Johnson
+uid: bethany.johnson
+mail: bethany.johnson@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Bernadette Carrel,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bernadette Carrel
+sn: Carrel
+uid: bernadette.carrel
+mail: bernadette.carrel@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Bethany Marshal,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bethany Marshal
+sn: Marshal
+uid: bethany.marshal
+mail: bethany.marshal@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Robert Osborne,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Robert Osborne
+sn: Osborne
+uid: robert.osborne
+mail: robert.osborne@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Mary Whittaker,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Mary Whittaker
+sn: Whittaker
+uid: mary.whittaker
+mail: mary.whittaker@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Adam Smith,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Adam Smith
+sn: Smith
+uid: adam.smith
+mail: adam.smith@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Adam Hill,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Adam Hill
+sn: Hill
+uid: adam.hill
+mail: adam.hill@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Darren Carrel,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Darren Carrel
+sn: Carrel
+uid: darren.carrel
+mail: darren.carrel@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Butch Osborne,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Butch Osborne
+sn: Osborne
+uid: butch.osborne
+mail: butch.osborne@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: sales
+
+
+dn: cn=Darren Dunphy,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Darren Dunphy
+sn: Dunphy
+uid: darren.dunphy
+mail: darren.dunphy@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: finance
+
+
+dn: cn=Bethany Dunphy,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Bethany Dunphy
+sn: Dunphy
+uid: bethany.dunphy
+mail: bethany.dunphy@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Butch Pitt,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Butch Pitt
+sn: Pitt
+uid: butch.pitt
+mail: butch.pitt@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Michael Marshal,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Michael Marshal
+sn: Marshal
+uid: michael.marshal
+mail: michael.marshal@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+
+dn: cn=Sophia Carrel,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Sophia Carrel
+sn: Carrel
+uid: sophia.carrel
+mail: sophia.carrel@neptune-software.com
+userPassword: s3cur3-pa$$-123
+description: engineering
+
+

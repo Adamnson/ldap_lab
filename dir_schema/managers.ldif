@@ -1,0 +1,37 @@
+dn: cn=Alice Johnson,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Alice Johnson
+sn: Johnson
+uid: alice.johnson
+mail: ceo@neptune-software.com
+userPassword: s3cur3-pa$$-ceo
+title: CEO
+
+dn: cn=Brian Smit,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Brian Smith
+sn: Smith
+uid: brian.smith
+mail: brian.smith@neptune-software.com
+userPassword: s3cur3-pa$$-cto
+title: CTO
+
+dn: cn=Clara Roy,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Clara Roy
+sn: Roy
+uid: clara.roy
+mail: cfo@neptune-software.com
+userPassword: s3cur3-pa$$-cfo
+manager: cn=Alice Johnson,ou=employees,dc=neptune-software,dc=com
+title: CFO
+
+dn: cn=David Scott,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: David Scott
+sn: Scott
+uid: david.scott 
+mail: david.scott@neptune-software.com
+userPassword: s3cur3-pa$$-sales
+manager: cn=Alice Johnson,ou=employees,dc=neptune-software,dc=com
+title: Head of Sales

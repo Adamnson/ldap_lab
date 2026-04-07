@@ -1,0 +1,8 @@
+
+dn: cn=Temp User,ou=employees,dc=neptune-software,dc=com
+objectClass: inetOrgPerson
+cn: Temp User
+sn: User
+uid: temp.user
+mail: temp.user@neptune-software.com
+userPassword: s3cur3-pa$$-123
