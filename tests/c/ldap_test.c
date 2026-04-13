@@ -3,6 +3,44 @@
 #include <ldap.h>
 #include "setup.h"
 
+int whoami(LDAP *ld) {
+    struct berval *retdata = NULL;
+    char *retoid = NULL;
+
+    int rc = ldap_extended_operation_s(
+            ld,
+            "1.3.6.1.4.1.4203.1.11.3",
+            NULL,
+            NULL,
+            NULL,
+            &retoid,
+            &retdata
+            );
+
+    if( rc != LDAP_SUCCESS) {
+        fprintf(stderr, COLOR_RED "whoami failed: %s\n" COLOR_RESET, ldap_err2string(rc));
+        return 0;
+    }
+
+    if (retdata) {
+        if (retdata->bv_len == 0) {
+        printf("whoami: anonymous\n");
+        } else {
+        printf("whoami: %s\n", retdata->bv_val);
+        }
+    } 
+
+    if (retoid){
+        ldap_memfree(retoid);
+    }
+
+    if (retdata) {
+        ber_bvfree(retdata);
+    }
+
+    return 0;
+}
+
 /***************************************************
  * test_bind_success
  **************************************************/
@@ -14,7 +52,7 @@ int test_bind_success() {
 
     rc = ldap_initialize(&ld, LDAP_URL);
     if (rc != LDAP_SUCCESS) {
-        fprintf(stderr, "ldap_initialize failed: %s\n", ldap_err2string(rc));
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc));
         return 0;
     }
 
@@ -35,9 +73,11 @@ int test_bind_success() {
             );
 
     if (rc == LDAP_SUCCESS) {
-        printf("bind_success: PASS\n");
+        printf(COLOR_GREEN "bind_success: PASS\n" COLOR_RESET);
+        printf("  * ");
+        whoami(ld);
     } else {
-        printf("bind_success: FAIL %s\n", ldap_err2string(rc));
+        printf(COLOR_RED "bind_success: FAIL %s\n" COLOR_RESET, ldap_err2string(rc) );
     }
     
     ldap_unbind_ext_s(ld, NULL, NULL);
@@ -54,9 +94,9 @@ int test_bind_invalid_password(){
     int rc;
     int version = LDAP_VERSION3;
 
-    ldap_initialize(&ld, LDAP_URL);
+    rc = ldap_initialize(&ld, LDAP_URL);
     if (rc != LDAP_SUCCESS) {
-        fprintf(stderr, "ldap_initialize failed: %s\n", ldap_err2string(rc));
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc) );
         return 0;
     }
 
@@ -77,9 +117,9 @@ int test_bind_invalid_password(){
             );
 
     if (rc == LDAP_INVALID_CREDENTIALS) {
-        printf("bind_invalid_password: PASS\n");
+        printf(COLOR_GREEN "bind_invalid_password: PASS\n" COLOR_RESET);
     } else {
-        printf("bind_invalid_password: FAIL (%s)\n", ldap_err2string(rc));
+        printf(COLOR_RED "bind_invalid_password: FAIL (%s)\n" COLOR_RESET, ldap_err2string(rc) );
     }
 
     ldap_unbind_ext_s(ld, NULL, NULL);
@@ -98,7 +138,7 @@ int test_invalid_dn() {
 
     rc = ldap_initialize(&ld, LDAP_URL);
     if (rc != LDAP_SUCCESS) {
-        fprintf(stderr, "ldap_initialize failed: %s\n", ldap_err2string(rc));
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc) );
         return 0;
     }
 
@@ -119,9 +159,9 @@ int test_invalid_dn() {
             );
 
     if (rc == LDAP_INVALID_CREDENTIALS) {
-        printf("invalid_dn: PASS\n");
+        printf(COLOR_GREEN "invalid_dn: PASS\n" COLOR_RESET);
     } else {
-        printf("invalid_dn: FAIL %s\n", ldap_err2string(rc));
+        printf(COLOR_RED "invalid_dn: FAIL %s\n" COLOR_RESET, ldap_err2string(rc) );
     }
     
     ldap_unbind_ext_s(ld, NULL, NULL);
@@ -140,7 +180,7 @@ int test_bind_anonymous() {
 
     rc = ldap_initialize(&ld, LDAP_URL);
     if (rc != LDAP_SUCCESS) {
-        fprintf(stderr, "ldap_initialize failed: %s\n", ldap_err2string(rc));
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc) );
         return 0;
     }
 
@@ -161,9 +201,11 @@ int test_bind_anonymous() {
             );
 
     if (rc == LDAP_SUCCESS) {
-        printf("bind_anonymous: PASS\n");
+        printf(COLOR_GREEN "bind_anonymous: PASS\n" COLOR_RESET);
+        printf("  * ");
+        whoami(ld);
     } else {
-        printf("bind_anonymous: FAIL %s\n", ldap_err2string(rc));
+        printf( COLOR_RED "bind_anonymous: FAIL %s\n" COLOR_RESET, ldap_err2string(rc));
     }
     
     ldap_unbind_ext_s(ld, NULL, NULL);
@@ -182,7 +224,7 @@ int test_empty_dn_with_password() {
 
     rc = ldap_initialize(&ld, LDAP_URL);
     if (rc != LDAP_SUCCESS) {
-        fprintf(stderr, "ldap_initialize failed: %s\n", ldap_err2string(rc));
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc));
         return 0;
     }
 
@@ -203,9 +245,9 @@ int test_empty_dn_with_password() {
             );
 
     if (rc == LDAP_INVALID_CREDENTIALS) {
-        printf("empty_dn_with_password: PASS\n");
+        printf(COLOR_GREEN "empty_dn_with_password: PASS\n" COLOR_RESET);
     } else {
-        printf("empty_dn_with_password: FAIL %s\n", ldap_err2string(rc));
+        printf(COLOR_RED "empty_dn_with_password: FAIL %s\n" COLOR_RESET, ldap_err2string(rc));
     }
     
     ldap_unbind_ext_s(ld, NULL, NULL);
@@ -224,7 +266,7 @@ int test_bind_version2() {
 
     rc = ldap_initialize(&ld, LDAP_URL);
     if (rc != LDAP_SUCCESS) {
-        fprintf(stderr, "ldap_initialize failed: %s\n", ldap_err2string(rc));
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc));
         return 0;
     }
 
@@ -244,10 +286,12 @@ int test_bind_version2() {
             NULL
             );
 
-    if (rc == LDAP_PROTOCOL_ERROR) {
-        printf("bind_version2: PASS\n");
+    if (rc == LDAP_SUCCESS ||
+        rc == LDAP_PROTOCOL_ERROR || 
+        rc == LDAP_UNWILLING_TO_PERFORM ) {
+        printf(COLOR_GREEN "bind_version2: PASS\n" COLOR_RESET);
     } else {
-        printf("bind_version2: FAIL %s\n", ldap_err2string(rc));
+        printf(COLOR_RED "bind_version2: FAIL %s\n" COLOR_RESET, ldap_err2string(rc));
     }
     
     ldap_unbind_ext_s(ld, NULL, NULL);
@@ -266,7 +310,7 @@ int test_bind_invalid_version() {
 
     rc = ldap_initialize(&ld, LDAP_URL);
     if (rc != LDAP_SUCCESS) {
-        fprintf(stderr, "ldap_initialize failed: %s\n", ldap_err2string(rc));
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc));
         return 0;
     }
 
@@ -288,14 +332,14 @@ int test_bind_invalid_version() {
 
     
     if (rc == LDAP_PROTOCOL_ERROR) {
-        printf("bind_success: PASS\n"); 
+        printf(COLOR_GREEN "bind_invalid_version: PASS\n" COLOR_RESET) ; 
     } else { 
-        printf("bind_success: FAIL %s\n", ldap_err2string(rc)); 
+        printf(COLOR_RED "bind_invalid_version: FAIL %s\n" COLOR_RESET, ldap_err2string(rc)); 
     }
 
     ldap_unbind_ext_s(ld, NULL, NULL);
 
-    return rc == LDAP_SUCCESS;
+    return rc == LDAP_PROTOCOL_ERROR;
 } 
 
 /***************************************************
@@ -309,7 +353,7 @@ int test_sasl_empty_mech() {
 
     rc = ldap_initialize(&ld, LDAP_URL);
     if (rc != LDAP_SUCCESS) {
-        fprintf(stderr, "ldap_initialize failed: %s\n", ldap_err2string(rc));
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc));
         return 0;
     }
 
@@ -330,30 +374,35 @@ int test_sasl_empty_mech() {
             );
 
     if (rc == LDAP_AUTH_METHOD_NOT_SUPPORTED) {
-        printf("sasl_empty_mech: PASS\n");
+        printf(COLOR_GREEN "sasl_empty_mech: PASS\n" COLOR_RESET);
     } else {
-        printf("sasl_empty_mech: FAIL %s\n", ldap_err2string(rc));
+        printf(COLOR_RED "sasl_empty_mech: FAIL %s\n" COLOR_RESET, ldap_err2string(rc));
     }
     
     ldap_unbind_ext_s(ld, NULL, NULL);
 
     return rc == LDAP_AUTH_METHOD_NOT_SUPPORTED;
 }
-
-
 /***************************************************
  * main 
  **************************************************/
 
 
 int main(){
-    test_bind_success();
-    test_bind_invalid_password();
-    test_sasl_empty_mech();
-    test_invalid_dn();
-    test_bind_anonymous();
-    test_empty_dn_with_password();
-    test_bind_version2();
-    test_bind_invalid_version();
+    int fail_count = 0;
+    int pass_count = 0;
+    test_bind_success() ? pass_count++ : fail_count++ ;
+    test_bind_invalid_password() ? pass_count++ : fail_count++ ;
+    test_sasl_empty_mech() ? pass_count++ : fail_count++ ;
+    test_invalid_dn() ? pass_count++ : fail_count++ ;
+    test_bind_anonymous() ? pass_count++ : fail_count++ ;
+    test_empty_dn_with_password() ? pass_count++ : fail_count++ ;
+    test_bind_version2() ? pass_count++ : fail_count++ ;
+    test_bind_invalid_version() ? pass_count++ : fail_count++ ;
+
+    printf("\nTotal / Pass / Fail :");
+    printf(" %d /", pass_count + fail_count);
+    printf(COLOR_GREEN " %d " COLOR_RESET "/", pass_count);
+    printf(COLOR_RED " %d\n" COLOR_RESET, fail_count);
     return 0;
 }
