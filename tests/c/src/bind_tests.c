@@ -3,6 +3,7 @@
 #include <ldap.h>
 #include "setup.h"
 #include "operations.h"
+#include "global_stats.h"
 /*
 int whoami(LDAP *ld) {
     struct berval *retdata = NULL;
@@ -287,9 +288,11 @@ int test_bind_version2() {
             NULL
             );
 
-    if (rc == LDAP_SUCCESS ||
-        rc == LDAP_PROTOCOL_ERROR || 
-        rc == LDAP_UNWILLING_TO_PERFORM ) {
+    if (rc == LDAP_SUCCESS) {
+        printf(COLOR_GREEN "bind_version2: PASS*\n" COLOR_RESET);
+        special_notifier("Security Warning: Binding to version2 allowed on this server.");
+    } else if (rc == LDAP_PROTOCOL_ERROR || 
+        rc == LDAP_UNWILLING_TO_PERFORM ){
         printf(COLOR_GREEN "bind_version2: PASS\n" COLOR_RESET);
     } else {
         printf(COLOR_RED "bind_version2: FAIL %s\n" COLOR_RESET, ldap_err2string(rc));
@@ -297,7 +300,9 @@ int test_bind_version2() {
     
     ldap_unbind_ext_s(ld, NULL, NULL);
 
-    return rc == LDAP_PROTOCOL_ERROR;
+    return (rc == LDAP_SUCCESS ||
+        rc == LDAP_PROTOCOL_ERROR || 
+        rc == LDAP_UNWILLING_TO_PERFORM );
 }
 
 /***************************************************
@@ -385,25 +390,23 @@ int test_sasl_empty_mech() {
     return rc == LDAP_AUTH_METHOD_NOT_SUPPORTED;
 }
 /***************************************************
- * main 
+ * run_bind_tests(int *pass_count, int *fail_count) 
  **************************************************/
 
 
-int main(){
-    int fail_count = 0;
-    int pass_count = 0;
-    test_bind_success() ? pass_count++ : fail_count++ ;
-    test_bind_invalid_password() ? pass_count++ : fail_count++ ;
-    test_sasl_empty_mech() ? pass_count++ : fail_count++ ;
-    test_invalid_dn() ? pass_count++ : fail_count++ ;
-    test_bind_anonymous() ? pass_count++ : fail_count++ ;
-    test_empty_dn_with_password() ? pass_count++ : fail_count++ ;
-    test_bind_version2() ? pass_count++ : fail_count++ ;
-    test_bind_invalid_version() ? pass_count++ : fail_count++ ;
+void run_bind_tests(int *pass_count,int *fail_count){
+    test_bind_success() ? (*pass_count)++ : (*fail_count)++ ;
+    test_bind_invalid_password() ? (*pass_count)++ : (*fail_count)++ ;
+    test_sasl_empty_mech() ? (*pass_count)++ : (*fail_count)++ ;
+    test_invalid_dn() ? (*pass_count)++ : (*fail_count)++ ;
+    test_bind_anonymous() ? (*pass_count)++ : (*fail_count)++ ;
+    test_empty_dn_with_password() ? (*pass_count)++ : (*fail_count)++ ;
+    test_bind_version2() ? (*pass_count)++ : (*fail_count)++ ;
+    test_bind_invalid_version() ? (*pass_count)++ : (*fail_count)++ ;
 
     printf("\nTotal / Pass / Fail :");
-    printf(" %d /", pass_count + fail_count);
-    printf(COLOR_GREEN " %d " COLOR_RESET "/", pass_count);
-    printf(COLOR_RED " %d\n" COLOR_RESET, fail_count);
-    return 0;
+    printf(" %d /", (*pass_count) + (*fail_count));
+    printf(COLOR_GREEN " %d " COLOR_RESET "/", (*pass_count));
+    printf(COLOR_RED " %d\n" COLOR_RESET, (*fail_count));
+    
 }

@@ -9,4 +9,8 @@
 #define COLOR_GREEN   "\033[32m"
 #define COLOR_YELLOW  "\033[33m"
 #define COLOR_RESET   "\033[0m"
+
+void run_bind_tests(int *pass_count, int *fail_count);
+void run_unbind_tests(int *pass_count, int * fail_count);
+
 #endif

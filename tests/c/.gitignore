@@ -1,0 +1,13 @@
+include/setup.h
+build/
+out/
+*.pcap
+*.pcapng
+*.json
+.DS_Store
+.directory
+*.swp
+*.swo
+*~
+.vscode/
+.history/
