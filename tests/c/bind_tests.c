@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <ldap.h>
 #include "setup.h"
-
+#include "operations.h"
+/*
 int whoami(LDAP *ld) {
     struct berval *retdata = NULL;
     char *retoid = NULL;
@@ -40,7 +41,7 @@ int whoami(LDAP *ld) {
 
     return 0;
 }
-
+*/
 /***************************************************
  * test_bind_success
  **************************************************/
