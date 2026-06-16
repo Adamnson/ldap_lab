@@ -4,45 +4,8 @@
 #include "setup.h"
 #include "operations.h"
 #include "global_stats.h"
-/*
-int whoami(LDAP *ld) {
-    struct berval *retdata = NULL;
-    char *retoid = NULL;
 
-    int rc = ldap_extended_operation_s(
-            ld,
-            "1.3.6.1.4.1.4203.1.11.3",
-            NULL,
-            NULL,
-            NULL,
-            &retoid,
-            &retdata
-            );
 
-    if( rc != LDAP_SUCCESS) {
-        fprintf(stderr, COLOR_RED "whoami failed: %s\n" COLOR_RESET, ldap_err2string(rc));
-        return 0;
-    }
-
-    if (retdata) {
-        if (retdata->bv_len == 0) {
-        printf("whoami: anonymous\n");
-        } else {
-        printf("whoami: %s\n", retdata->bv_val);
-        }
-    } 
-
-    if (retoid){
-        ldap_memfree(retoid);
-    }
-
-    if (retdata) {
-        ber_bvfree(retdata);
-    }
-
-    return 0;
-}
-*/
 /***************************************************
  * test_bind_success
  **************************************************/
@@ -172,6 +135,49 @@ int test_invalid_dn() {
 }
 
 /***************************************************
+ * test_invalid_dn_syntax
+ **************************************************/
+
+int test_invalid_dn_syntax() {
+    LDAP *ld = NULL;
+    int rc;
+    int version = LDAP_VERSION3;
+
+    rc = ldap_initialize(&ld, LDAP_URL);
+    if (rc != LDAP_SUCCESS) {
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc) );
+        return 0;
+    }
+
+    ldap_set_option(ld, LDAP_OPT_PROTOCOL_VERSION, &version);
+
+    struct berval cred;
+    cred.bv_val = PASSWORD;
+    cred.bv_len = strlen(PASSWORD);
+
+    rc = ldap_sasl_bind_s(
+            ld, 
+            "cn=,dc=neptune-software,dc=com", 
+            LDAP_SASL_SIMPLE, 
+            &cred, 
+            NULL, 
+            NULL, 
+            NULL
+            );
+
+    if (rc == LDAP_INVALID_DN_SYNTAX) {
+        printf(COLOR_GREEN "invalid_dn_syntax: PASS\n" COLOR_RESET);
+    } else {
+        printf(COLOR_RED "invalid_dn_syntax: FAIL %s\n" COLOR_RESET, ldap_err2string(rc) );
+    }
+    
+    ldap_unbind_ext_s(ld, NULL, NULL);
+
+    return rc == LDAP_INVALID_DN_SYNTAX;
+}
+
+
+/***************************************************
  * test_bind_anonymous
  **************************************************/
 
@@ -258,6 +264,168 @@ int test_empty_dn_with_password() {
 }
 
 /***************************************************
+ * test_valid_dn_with_empty_password
+ **************************************************/
+
+int test_valid_dn_with_empty_password() {
+    LDAP *ld = NULL;
+    int rc;
+    int version = LDAP_VERSION3;
+
+    rc = ldap_initialize(&ld, LDAP_URL);
+    if (rc != LDAP_SUCCESS) {
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc));
+        return 0;
+    }
+
+    ldap_set_option(ld, LDAP_OPT_PROTOCOL_VERSION, &version);
+
+    struct berval cred;
+    cred.bv_val = "";
+    cred.bv_len = 0; 
+
+    rc = ldap_sasl_bind_s(
+            ld, 
+            BIND_DN,
+            LDAP_SASL_SIMPLE, 
+            &cred, 
+            NULL, 
+            NULL, 
+            NULL
+            );
+
+    if (rc == LDAP_UNWILLING_TO_PERFORM) {
+        printf(COLOR_GREEN "valid_dn_with_empty_password: PASS\n" COLOR_RESET);
+    } else {
+        printf(COLOR_RED "valid_dn_with_empty_passwor: FAIL %s\n" COLOR_RESET, ldap_err2string(rc));
+    }
+    
+    ldap_unbind_ext_s(ld, NULL, NULL);
+
+    return rc == LDAP_UNWILLING_TO_PERFORM;
+}
+
+/***************************************************
+ * test_bind_huge_dn
+ **************************************************/
+
+int test_bind_huge_dn() {
+    LDAP *ld = NULL;
+    int rc;
+    int version = LDAP_VERSION3;
+
+    rc = ldap_initialize(&ld, LDAP_URL);
+    if (rc != LDAP_SUCCESS) {
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc));
+        return 0;
+    }
+
+    ldap_set_option(ld, LDAP_OPT_PROTOCOL_VERSION, &version);
+
+    size_t fill_len = 10000;
+    const char *prefix = "cn=";
+    const char *suffix = ",dc=example,dc=com";
+    
+    // Allocate exactly enough space: prefix + 10000 + suffix + null terminator
+    size_t total_dn_len = strlen(prefix) + fill_len + strlen(suffix) + 1;
+    char *huge_dn = (char *)malloc(total_dn_len);
+    
+    if (huge_dn == NULL) {
+        fprintf(stderr, "Failed to allocate memory for huge DN\n");
+        ldap_unbind_ext_s(ld, NULL, NULL);
+        return 0;
+    }
+
+    // Assemble the string safely
+    strcpy(huge_dn, prefix);
+    memset(huge_dn + strlen(prefix), 'a', fill_len); // Fill the middle with 'a's
+    strcpy(huge_dn + strlen(prefix) + fill_len, suffix); // Append the suffix
+   
+    struct berval cred;
+    cred.bv_val = PASSWORD;
+    cred.bv_len = strlen(PASSWORD);
+
+    rc = ldap_sasl_bind_s(
+            ld, 
+            huge_dn,
+            LDAP_SASL_SIMPLE, 
+            &cred, 
+            NULL, 
+            NULL, 
+            NULL
+            );
+
+    if (rc == LDAP_NAMING_VIOLATION || 
+        rc == LDAP_INVALID_DN_SYNTAX || 
+        rc == LDAP_ADMINLIMIT_EXCEEDED) {
+        printf(COLOR_GREEN "bind_huge_dn: PASS\n" COLOR_RESET);
+    } else {
+        printf(COLOR_RED "bind_huge_dn: FAIL %s\n" COLOR_RESET, ldap_err2string(rc));
+    }
+    
+    free(huge_dn);
+    ldap_unbind_ext_s(ld, NULL, NULL);
+
+    return (rc == LDAP_NAMING_VIOLATION || 
+        rc == LDAP_INVALID_DN_SYNTAX || 
+        rc == LDAP_ADMINLIMIT_EXCEEDED); 
+}
+
+/***************************************************
+ * test_bind_huge_password
+ **************************************************/
+
+int test_bind_huge_password() {
+    LDAP *ld = NULL;
+    int rc;
+    int version = LDAP_VERSION3;
+
+    rc = ldap_initialize(&ld, LDAP_URL);
+    if (rc != LDAP_SUCCESS) {
+        fprintf(stderr, COLOR_RED "ldap_initialize failed: %s\n" COLOR_RESET, ldap_err2string(rc));
+        return 0;
+    }
+
+    ldap_set_option(ld, LDAP_OPT_PROTOCOL_VERSION, &version);
+
+    size_t fill_len = 10000;
+    char *huge_password = (char *)malloc(fill_len + 1);
+    if (huge_password == NULL) {
+        fprintf(stderr, "Failed to allocate memory for huge password\n");
+        free(huge_password);
+        ldap_unbind_ext_s(ld, NULL, NULL);
+        return 0;
+    }
+    memset(huge_password, 'b', fill_len);
+    huge_password[fill_len] = '\0'; // Don't forget the null terminator!
+    
+    struct berval cred;
+    cred.bv_val = huge_password;
+    cred.bv_len = fill_len;
+
+    rc = ldap_sasl_bind_s(
+            ld, 
+            BIND_DN,
+            LDAP_SASL_SIMPLE, 
+            &cred, 
+            NULL, 
+            NULL, 
+            NULL
+            );
+
+    if (rc == LDAP_INVALID_CREDENTIALS || 
+        rc == LDAP_ADMINLIMIT_EXCEEDED) {
+        printf(COLOR_GREEN "bind_huge_password: PASS\n" COLOR_RESET);
+    } else {
+        printf(COLOR_RED "bind_huge_password: FAIL %s\n" COLOR_RESET, ldap_err2string(rc));
+    }
+    
+    free(huge_password);
+    ldap_unbind_ext_s(ld, NULL, NULL);
+
+    return (rc == LDAP_INVALID_CREDENTIALS || 
+        rc == LDAP_ADMINLIMIT_EXCEEDED); 
+}/***************************************************
  * test_bind_version2
  **************************************************/
 
@@ -399,8 +567,12 @@ void run_bind_tests(int *pass_count,int *fail_count){
     test_bind_invalid_password() ? (*pass_count)++ : (*fail_count)++ ;
     test_sasl_empty_mech() ? (*pass_count)++ : (*fail_count)++ ;
     test_invalid_dn() ? (*pass_count)++ : (*fail_count)++ ;
+    test_invalid_dn_syntax() ? (*pass_count)++ : (*fail_count)++ ;
     test_bind_anonymous() ? (*pass_count)++ : (*fail_count)++ ;
     test_empty_dn_with_password() ? (*pass_count)++ : (*fail_count)++ ;
+    test_valid_dn_with_empty_password() ? (*pass_count)++ : (*fail_count)++ ;
+    test_bind_huge_dn() ? (*pass_count)++ : (*fail_count)++ ;
+    test_bind_huge_password() ? (*pass_count)++ : (*fail_count)++ ;
     test_bind_version2() ? (*pass_count)++ : (*fail_count)++ ;
     test_bind_invalid_version() ? (*pass_count)++ : (*fail_count)++ ;
 
